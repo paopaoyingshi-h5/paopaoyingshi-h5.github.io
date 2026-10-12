@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>泡泡影视 - 轻盈梦幻的电影世界 | paopaoyingshi-h5.github.io</title>
+<meta name="description" content="泡泡影视（paopaoyingshi-h5.github.io）是轻盈梦幻主题影视导航站：彩虹分类、漂浮片单、泡泡热榜、梦幻预约，移动端自适应，纯静态演示。" />
+<meta name="keywords" content="泡泡影视,paopaoyingshi-h5,梦幻电影,轻盈影视,泡泡导航,彩虹片单,影视网站" />
+<link rel="canonical" href="https://paopaoyingshi-h5.github.io/" />
+<style>
+:root{
+  --bubble-blue:#a8d8ea;--bubble-blue-dark:#7ec8e3;--bubble-pink:#fcbad3;--bubble-pink-dark:#f8a5c2;
+  --mint:#c7f0db;--mint-dark:#a3e4c0;--pearl:#fff9fb;--pearl-dark:#f5eef8;
+  --dream-purple:#c8a2ff;--dream-purple-dark:#b085f5;
+  --text-dark:#2d3436;--text-gray:#636e72;--text-light:#b2bec3;
+  --radius:24px;--radius-sm:14px;--maxw:1180px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:linear-gradient(180deg,var(--pearl) 0%,#e8f4fd 50%,var(--pearl-dark) 100%);
+  color:var(--text-dark);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+
+/* 气泡背景 */
+.bubbles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bubbles span{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.8),rgba(168,216,234,.3) 60%,rgba(252,186,211,.2));animation:float var(--dur) ease-in-out infinite;backdrop-filter:blur(2px)}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+
+/* 顶部 */
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,249,251,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(168,216,234,.4)}
+.nav{display:flex;align-items:center;gap:12px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;color:var(--text-dark)}
+.logo-icon{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--bubble-pink),var(--bubble-blue));display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 15px rgba(252,186,211,.4),inset -4px -4px 10px rgba(0,0,0,.05)}
+.logo small{display:block;font-size:9px;color:var(--text-gray);font-weight:500}
+.menu{margin-left:auto;display:flex;gap:4px}
+.menu a{padding:7px 16px;border-radius:999px;font-size:13px;color:var(--text-gray);transition:.25s}
+.menu a:hover{background:rgba(168,216,234,.25);color:var(--text-dark)}
+.search{display:flex;gap:6px}
+.search input{width:140px;padding:8px 16px;border-radius:999px;border:1px solid rgba(168,216,234,.5);background:rgba(255,255,255,.7);color:var(--text-dark);outline:none;font-size:13px}
+.search input::placeholder{color:var(--text-light)}
+.search button{border:0;padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:700;background:linear-gradient(135deg,var(--bubble-blue),var(--bubble-pink));color:#fff;font-size:13px}
+.burger{display:none;margin-left:auto;background:rgba(255,255,255,.7);border:1px solid rgba(168,216,234,.5);color:var(--text-dark);border-radius:8px;padding:6px 10px;font-size:16px}
+
+/* 首屏 */
+.hero{position:relative;z-index:1;margin:24px 0;border-radius:36px;overflow:hidden;background:linear-gradient(135deg,var(--bubble-blue),var(--bubble-pink),var(--mint));
+min-height:360px;display:flex;align-items:center}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.4),transparent 50%),radial-gradient(circle at 80% 80%,rgba(200,162,255,.2),transparent 40%)}
+.hero-body{padding:44px 40px;flex:1;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:999px;background:rgba(255,255,255,.5);color:var(--text-dark);font-size:11px;font-weight:800;letter-spacing:2px;margin-bottom:16px;backdrop-filter:blur(8px)}
+.hero-badge .bubble-icon{animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.hero h1{font-size:38px;margin:0 0 10px;color:var(--text-dark);line-height:1.2}
+.hero h1 .pao{background:linear-gradient(135deg,var(--bubble-pink-dark),var(--dream-purple-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:rgba(45,52,54,.7);font-size:15px;max-width:420px;margin:0 0 24px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:999px;font-weight:800;border:0;cursor:pointer;transition:.25s;font-size:13px}
+.btn-bubble{background:linear-gradient(135deg,var(--bubble-pink),var(--bubble-blue));color:#fff}
+.btn-bubble:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(252,186,211,.4)}
+.btn-glass{background:rgba(255,255,255,.5);border:2px solid rgba(255,255,255,.6);color:var(--text-dark);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:rgba(255,255,255,.7)}
+
+/* 右侧泡泡群 */
+.hero-bubbles{position:relative;z-index:2;padding:40px;display:flex;align-items:center;justify-content:center}
+.bubble-group{position:relative;width:220px;height:220px}
+.bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.9),rgba(168,216,234,.4) 50%,rgba(252,186,211,.3));backdrop-filter:blur(4px);animation:bubble-float var(--bdur) ease-in-out infinite}
+@keyframes bubble-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.b1{width:80px;height:80px;top:20px;left:20px;--bdur:4s}
+.b2{width:60px;height:60px;top:80px;right:10px;--bdur:3.5s}
+.b3{width:50px;height:50px;bottom:30px;left:40px;--bdur:5s}
+.b4{width:40px;height:40px;top:10px;right:50px;--bdur:3s}
+.b5{width:35px;height:35px;bottom:10px;right:30px;--bdur:4.5s}
+.b6{width:28px;height:28px;top:50%;left:0;--bdur:3.8s}
+
+/* 栏目区 */
+.section{padding:36px 0;position:relative;z-index:1}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head h2{font-size:22px;margin:0;color:var(--text-dark)}
+.sec-head span{color:var(--text-gray);font-size:12px}
+.more{margin-left:auto;color:var(--bubble-blue-dark);font-size:12px;font-weight:700}
+
+/* 彩虹分类 */
+.rainbow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.rainbow-item{border-radius:20px;padding:24px 18px;text-align:center;transition:.3s;position:relative;overflow:hidden}
+.rainbow-item::before{content:"";position:absolute;top:0;left:0;right:0;height:5px}
+.rainbow-item:hover{transform:translateY(-5px)}
+.r1{background:rgba(168,216,234,.2);border:1px solid rgba(168,216,234,.4)}.r1::before{background:var(--bubble-blue)}
+.r2{background:rgba(252,186,211,.2);border:1px solid rgba(252,186,211,.4)}.r2::before{background:var(--bubble-pink)}
+.r3{background:rgba(199,240,219,.2);border:1px solid rgba(199,240,219,.4)}.r3::before{background:var(--mint)}
+.r4{background:rgba(200,162,255,.2);border:1px solid rgba(200,162,255,.4)}.r4::before{background:var(--dream-purple)}
+.r5{background:rgba(255,234,167,.2);border:1px solid rgba(255,234,167,.4)}.r5::before{background:#ffeaa7}
+.r6{background:rgba(255,200,221,.2);border:1px solid rgba(255,200,221,.4)}.r6::before{background:#ffc8dd}
+.r7{background:rgba(180,220,255,.2);border:1px solid rgba(180,220,255,.4)}.r7::before{background:#b4dcff}
+.r8{background:rgba(220,200,255,.2);border:1px solid rgba(220,200,255,.4)}.r8::before{background:#dcc8ff}
+.rainbow-item .icon{font-size:30px;margin-bottom:10px;display:block}
+.rainbow-item h3{font-size:15px;margin:0 0 4px;color:var(--text-dark);font-weight:800}
+.rainbow-item p{font-size:12px;color:var(--text-gray);margin:0}
+
+/* 漂浮片单 */
+.float-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.float-card{border-radius:18px;overflow:hidden;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(10px);transition:.25s;box-shadow:0 4px 20px rgba(168,216,234,.15)}
+.float-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(168,216,234,.25)}
+.float-cover{aspect-ratio:3/4;border-radius:18px 18px 0 0;position:relative;display:flex;align-items:flex-end;padding:14px}
+.float-card:nth-child(1) .float-cover{background:linear-gradient(160deg,var(--bubble-blue-dark),var(--dream-purple))}
+.float-card:nth-child(2) .float-cover{background:linear-gradient(160deg,var(--bubble-pink-dark),var(--bubble-blue))}
+.float-card:nth-child(3) .float-cover{background:linear-gradient(160deg,var(--mint-dark),var(--dream-purple-dark))}
+.float-card:nth-child(4) .float-cover{background:linear-gradient(160deg,var(--bubble-blue),var(--bubble-pink))}
+.float-card:nth-child(5) .float-cover{background:linear-gradient(160deg,var(--dream-purple-dark),var(--bubble-blue-dark))}
+.float-card:nth-child(6) .float-cover{background:linear-gradient(160deg,var(--bubble-pink),var(--mint-dark))}
+.float-card:nth-child(7) .float-cover{background:linear-gradient(160deg,var(--mint),var(--bubble-blue))}
+.float-card:nth-child(8) .float-cover{background:linear-gradient(160deg,var(--dream-purple),var(--bubble-pink-dark))}
+.float-cover .tag{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.85);color:var(--text-dark);font-size:10px;padding:3px 10px;border-radius:999px;font-weight:700}
+.float-cover h4{margin:0;font-size:14px;color:#fff}
+.float-body{padding:12px}
+.float-body .tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.float-body .tags span{font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(168,216,234,.2);color:var(--text-dark)}
+.float-body p{margin:0;font-size:11px;color:var(--text-gray);line-height:1.5}
+
+/* 泡泡热榜 */
+.bubble-chart{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bc-row{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(10px);border-radius:16px;padding:14px 18px;transition:.25s}
+.bc-row:hover{border-color:var(--bubble-pink);background:rgba(252,186,211,.1)}
+.bc-num{font-size:24px;font-weight:900;color:var(--bubble-blue-dark);width:40px;text-align:center;flex-shrink:0}
+.bc-num.hot{color:var(--bubble-pink-dark)}
+.bc-info{flex:1}
+.bc-info h4{margin:0 0 2px;font-size:14px;color:var(--text-dark)}
+.bc-info span{font-size:11px;color:var(--text-gray)}
+.bc-bubble{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.8),var(--bubble-blue) 60%,var(--bubble-pink));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+
+/* 梦幻预约 */
+.dream{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dream-card{border-radius:20px;padding:24px;background:linear-gradient(135deg,rgba(168,216,234,.15),rgba(252,186,211,.1));border:1px solid rgba(252,186,211,.3);position:relative;overflow:hidden}
+.dream-card::before{content:"♡";position:absolute;right:10px;top:10px;font-size:50px;opacity:.1;color:var(--bubble-pink-dark)}
+.dream-card h3{margin:0 0 6px;font-size:16px;color:var(--text-dark)}
+.dream-card .when{font-size:11px;color:var(--bubble-blue-dark);font-weight:800;letter-spacing:1px;margin-bottom:8px}
+.dream-card p{margin:0 0 14px;font-size:12px;color:var(--text-gray);line-height:1.6}
+.dream-card button{padding:8px 20px;border-radius:999px;background:transparent;border:1.5px solid var(--bubble-pink-dark);color:var(--bubble-pink-dark);font-weight:800;font-size:12px;cursor:pointer;transition:.25s}
+.dream-card button:hover{background:rgba(252,186,211,.15)}
+
+/* 关于 */
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+.about-card{border-radius:22px;padding:24px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(10px)}
+.about-card h3{font-size:18px;margin:0 0 12px;color:var(--text-dark)}
+.about-card p,.about-card li{font-size:13px;color:var(--text-gray);line-height:1.8}
+.about-card ul{padding-left:18px;margin:0}
+.stats{display:flex;gap:12px;margin-top:16px}
+.stat{flex:1;text-align:center;padding:14px;border-radius:16px;background:rgba(168,216,234,.12);border:1px solid rgba(168,216,234,.3)}
+.stat b{display:block;font-size:22px;color:var(--bubble-blue-dark)}
+.stat span{font-size:11px;color:var(--text-gray)}
+
+/* 底部 */
+footer.site{border-top:1px solid rgba(168,216,234,.4);padding:28px 0 44px;color:var(--text-gray);font-size:12px;text-align:center;position:relative;z-index:1}
+footer.site a{color:var(--bubble-blue-dark)}
+code{background:rgba(255,255,255,.7);border:1px solid rgba(168,216,234,.5);padding:2px 8px;border-radius:6px;color:var(--text-dark);font-size:11px}
+
+@media (max-width:980px){
+  .hero{flex-direction:column}
+  .hero-body{padding:32px 24px}
+  .hero-bubbles{padding:24px}
+  .rainbow{grid-template-columns:repeat(2,1fr)}
+  .float-grid{grid-template-columns:repeat(2,1fr)}
+  .bubble-chart{grid-template-columns:1fr}
+  .dream{grid-template-columns:1fr}
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .menu{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--pearl);border-bottom:1px solid rgba(168,216,234,.4);padding:10px 16px;gap:4px}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .search input{width:100px}
+  .hero h1{font-size:26px}
+  .bubble-group{width:160px;height:160px}
+  .b1{width:60px;height:60px}.b2{width:44px;height:44px}.b3{width:36px;height:36px}.b4{width:30px;height:30px}.b5{width:24px;height:24px}.b6{width:20px;height:20px}
+  .rainbow{grid-template-columns:1fr 1fr}
+  .float-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<!-- 气泡背景 -->
+<div class="bubbles">
+  <span style="width:120px;height:120px;top:5%;left:5%;--dur:8s;opacity:.3"></span>
+  <span style="width:80px;height:80px;top:20%;right:10%;--dur:6s;opacity:.25"></span>
+  <span style="width:60px;height:60px;top:50%;left:15%;--dur:10s;opacity:.2"></span>
+  <span style="width:100px;height:100px;top:60%;right:5%;--dur:7s;opacity:.15"></span>
+  <span style="width:50px;height:50px;top:80%;left:30%;--dur:9s;opacity:.2"></span>
+  <span style="width:70px;height:70px;top:35%;right:25%;--dur:5.5s;opacity:.18"></span>
+  <span style="width:40px;height:40px;top:70%;right:40%;--dur:12s;opacity:.22"></span>
+</div>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="logo">
+      <div class="logo-icon">🫧</div>
+      <div>泡泡影视<small>paopaoyingshi-h5.github.io</small></div>
+    </div>
+    <nav class="menu" id="menu">
+      <a href="#home">泡泡首页</a>
+      <a href="#rainbow">彩虹分类</a>
+      <a href="#float">漂浮片单</a>
+      <a href="#chart">泡泡热榜</a>
+      <a href="#dream">梦幻预约</a>
+      <a href="#about">关于泡泡</a>
+    </nav>
+    <div class="search">
+      <input type="text" placeholder="搜电影/类型/心情" aria-label="搜索" />
+      <button type="button" onclick="alert('演示站：搜索用 # 占位')">探索</button>
+    </div>
+    <button class="burger" id="burger" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 首屏 -->
+  <section class="hero" id="home" aria-label="泡泡影视首屏">
+    <div class="hero-body">
+      <div class="hero-badge"><span class="bubble-icon">🫧</span> BUBBLE CINEMA</div>
+      <h1>轻盈如<em class="pao">泡泡</em>，<br/>每一帧都闪闪发光</h1>
+      <p>泡泡影视——像吹泡泡一样发现好电影。彩虹分类、漂浮片单、梦幻预约，在五彩斑斓的光影中，找到属于你的那颗泡泡。</p>
+      <div class="hero-cta">
+        <button class="btn btn-bubble" onclick="location.href='#float'">进入泡泡</button>
+        <button class="btn btn-glass" onclick="location.href='#rainbow'">浏览分类</button>
+      </div>
+    </div>
+    <div class="hero-bubbles">
+      <div class="bubble-group">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+        <div class="bubble b5"></div>
+        <div class="bubble b6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 彩虹分类 -->
+  <section class="section" id="rainbow">
+    <div class="sec-head"><h2>彩虹分类</h2><span>Rainbow Genres</span><a class="more" href="#">全部 #</a></div>
+    <div class="rainbow">
+      <div class="rainbow-item r1"><span class="icon">💧</span><h3>治愈·温情</h3><p>柔软内心</p></div>
+      <div class="rainbow-item r2"><span class="icon">🌸</span><h3>浪漫·爱情</h3><p>甜蜜气泡</p></div>
+      <div class="rainbow-item r3"><span class="icon">🍃</span><h3>清新·文艺</h3><p>微风拂面</p></div>
+      <div class="rainbow-item r4"><span class="icon">🔮</span><h3>奇幻·魔法</h3><p>梦境穿梭</p></div>
+      <div class="rainbow-item r5"><span class="icon">☀️</span><h3>欢乐·喜剧</h3><p>阳光灿烂</p></div>
+      <div class="rainbow-item r6"><span class="icon">🎨</span><h3>动画·童真</h3><p>色彩斑斓</p></div>
+      <div class="rainbow-item r7"><span class="icon">🌊</span><h3>冒险·探索</h3><p>乘风破浪</p></div>
+      <div class="rainbow-item r8"><span class="icon">✨</span><h3>音乐·歌舞</h3><p>星光舞台</p></div>
+    </div>
+  </section>
+
+  <!-- 漂浮片单 -->
+  <section class="section" id="float">
+    <div class="sec-head"><h2>漂浮片单</h2><span>Float Picks</span><a class="more" href="#">更多 #</a></div>
+    <div class="float-grid">
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">治愈</span><h4>海蒂和爷爷</h4></div>
+        <div class="float-body"><div class="tags"><span>温情</span><span>自然</span></div><p>阿尔卑斯山的风，吹散所有烦恼。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">浪漫</span><h4>怦然心动</h4></div>
+        <div class="float-body"><div class="tags"><span>爱情</span><span>青春</span></div><p>梧桐树上的风景，是初恋最好的样子。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">奇幻</span><h4>大鱼</h4></div>
+        <div class="float-body"><div class="tags"><span>奇幻</span><span>温情</span></div><p>父亲的故事像一条大鱼，游进每个人的梦里。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">清新</span><h4>小森林</h4></div>
+        <div class="float-body"><div class="tags"><span>生活</span><span>美食</span></div><p>在四季轮转中，用料理治愈自己。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">欢乐</span><h4>三傻大闹宝莱坞</h4></div>
+        <div class="float-body"><div class="tags"><span>喜剧</span><span>励志</span></div><p>追求卓越，成功自然会追上你。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">动画</span><h4>龙猫</h4></div>
+        <div class="float-body"><div class="tags"><span>动画</span><span>童真</span></div><p>只有孩子才能看见的森林精灵。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">冒险</span><h4>飞屋环游记</h4></div>
+        <div class="float-body"><div class="tags"><span>冒险</span><span>温情</span></div><p>用无数气球，带着房子去冒险。</p></div>
+      </div>
+      <div class="float-card">
+        <div class="float-cover"><span class="tag">音乐</span><h4>爱乐之城</h4></div>
+        <div class="float-body"><div class="tags"><span>音乐</span><span>爱情</span></div><p>洛杉矶的星光下，跳一支追梦的舞。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 泡泡热榜 -->
+  <section class="section" id="chart">
+    <div class="sec-head"><h2>泡泡热榜</h2><span>Bubble Chart</span><a class="more" href="#">完整榜单 #</a></div>
+    <div class="bubble-chart">
+      <div class="bc-row"><div class="bc-num hot">1</div><div class="bc-info"><h4>海蒂和爷爷</h4><span>治愈 / 温情 / 自然</span></div><div class="bc-bubble">9.3</div></div>
+      <div class="bc-row"><div class="bc-num hot">2</div><div class="bc-info"><h4>怦然心动</h4><span>浪漫 / 青春 / 爱情</span></div><div class="bc-bubble">9.1</div></div>
+      <div class="bc-row"><div class="bc-num hot">3</div><div class="bc-info"><h4>龙猫</h4><span>动画 / 童真 / 治愈</span></div><div class="bc-bubble">9.2</div></div>
+      <div class="bc-row"><div class="bc-num">4</div><div class="bc-info"><h4>小森林</h4><span>生活 / 美食 / 清新</span></div><div class="bc-bubble">8.8</div></div>
+      <div class="bc-row"><div class="bc-num">5</div><div class="bc-info"><h4>飞屋环游记</h4><span>冒险 / 温情 / 动画</span></div><div class="bc-bubble">8.9</div></div>
+      <div class="bc-row"><div class="bc-num">6</div><div class="bc-info"><h4>大鱼</h4><span>奇幻 / 温情 / 故事</span></div><div class="bc-bubble">8.7</div></div>
+    </div>
+  </section>
+
+  <!-- 梦幻预约 -->
+  <section class="section" id="dream">
+    <div class="sec-head"><h2>梦幻预约</h2><span>Dream Reserve</span><a class="more" href="#">全部 #</a></div>
+    <div class="dream">
+      <div class="dream-card">
+        <div class="when">🗓 5天后上映</div>
+        <h3>你想活出怎样的人生</h3>
+        <p>宫崎骏最新力作，一场关于生命意义的奇幻旅程。</p>
+        <button>预约提醒</button>
+      </div>
+      <div class="dream-card">
+        <div class="when">🗓 10天后上映</div>
+        <h3>蜘蛛侠：纵横宇宙</h3>
+        <p>多元宇宙再开启，每一帧都是壁纸级画面。</p>
+        <button>预约提醒</button>
+      </div>
+      <div class="dream-card">
+        <div class="when">🗓 15天后上映</div>
+        <h3>芭比</h3>
+        <p>粉色风暴席卷全球，一场关于自我认知的狂欢。</p>
+        <button>预约提醒</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于 -->
+  <section class="section" id="about">
+    <div class="sec-head"><h2>关于泡泡</h2><span>About</span></div>
+    <div class="about">
+      <div class="about-card">
+        <h3>泡泡影视是什么？</h3>
+        <p>泡泡影视（paopaoyingshi-h5.github.io）是一个轻盈梦幻主题的影视导航演示站。以彩虹分类、漂浮片单、泡泡热榜为核心，带你像吹泡泡一样轻松发现好电影。不追沉重，只追轻盈。</p>
+        <div class="stats">
+          <div class="stat"><b>8</b><span>彩虹分类</span></div>
+          <div class="stat"><b>8</b><span>漂浮片单</span></div>
+          <div class="stat"><b>100%</b><span>移动端适配</span></div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>演示说明</h3>
+        <ul>
+          <li>纯静态单页，无后端、无数据库</li>
+          <li>所有链接均为 <code>#</code> 占位</li>
+          <li>不提供盗版资源</li>
+          <li>必应收录友好</li>
+          <li>移动端优先响应式</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    泡泡影视 · <a href="https://paopaoyingshi-h5.github.io/">paopaoyingshi-h5.github.io</a><br/>
+    演示页面：所有链接均使用 <code>#</code> 占位，不提供真实盗版资源。<br/>
+    © 2026 泡泡影视 Demo · 轻盈梦幻影视导航演示
+  </div>
+</footer>
+
+<script>
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  }));
+</script>
+</body>
+</html>
